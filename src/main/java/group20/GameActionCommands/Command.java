@@ -5,14 +5,19 @@ import group20.GameLogic.GameState;
 
 public abstract class Command {
     protected Instant timestamp;
+    protected GameState state;
 
-    public Command(){};
+    public Command(){}
+    
+    public Command(GameState state){
+        this.state = state;
+    };
 
-    public Instant getTimestamp(){
+    public void storeTimestamp(){
         this.timestamp = Instant.now();
-        return this.timestamp;
     }
-    public abstract void execute(GameState state);
+
+    public abstract void execute() throws InvalidCommandException;
 
     public String toString(){
         return this.getClass().getSimpleName();

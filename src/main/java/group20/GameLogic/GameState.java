@@ -13,6 +13,7 @@ public class GameState {
     private List<Category> categories;
     private List<Command> commandHistory;
     private Turn currentTurn;
+    private boolean isOver;
     
     public GameState() {
         this.turns = new TreeMap<>();
@@ -20,6 +21,7 @@ public class GameState {
         this.players = new ArrayList<>();
         this.categories = new ArrayList<>();
         this.commandHistory = new ArrayList<>();
+        this.isOver = false;
     }
 
     public void setPlayerCount(int count) {
@@ -41,6 +43,10 @@ public class GameState {
 
     public void recordCommand(Command command) {
         commandHistory.add(command);
+    }
+
+    public void setIsOver(boolean isOver){
+        this.isOver = isOver;
     }
 
     public Map<Integer, Turn> getTurns() {
@@ -75,5 +81,9 @@ public class GameState {
         }
 
         return categories.isEmpty();
+    }
+
+    public boolean getIsOver(){
+        return this.isOver;
     }
 }
