@@ -11,12 +11,8 @@ public class Question {
 
     static private int idCounter = 0;
 
-    public Question(String text, int points, char answer, Map<Character, String> options) {
+    public Question() {
         this.id = idCounter++;
-        this.text = text;
-        this.points = points;
-        this.answer = answer;
-        this.options = options;
     }
 
     public void setText(String text) {
@@ -39,12 +35,16 @@ public class Question {
         return id;
     }
 
+    public String getText() {
+        return text;
+    }
+
     public int getPoints() {
         return points;
     }
 
     public boolean isCorrect(char response) {
-        return this.answer == response;
+        return answer == response;
     }
 
     public String getOption(char optionKey) {

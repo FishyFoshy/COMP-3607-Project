@@ -1,11 +1,12 @@
 package group20.GameLogic;
 
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 import group20.GameActionCommands.Command;
 
 public class GameState {
-    private TreeMap<Integer, Turn> turns;
+    private Map<Integer, Turn> turns;
     private int playerCount;
     private List<Player> players;
     private List<Category> categories;
@@ -41,7 +42,7 @@ public class GameState {
         commandHistory.add(command);
     }
 
-    public TreeMap<Integer, Turn> getTurns() {
+    public Map<Integer, Turn> getTurns() {
         return turns;
     }
 
