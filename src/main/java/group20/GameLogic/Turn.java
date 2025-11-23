@@ -6,7 +6,7 @@ public class Turn {
     private Category turnCategory;
     private Question turnQuestion;
     private char answerGiven;
-    private boolean isCorrect;
+    private boolean correct;
     private int newPlayerScore;
 
     static private int turnCounter = 0;
@@ -29,8 +29,8 @@ public class Turn {
     }
 
     public void evaluateAnswer() {
-        this.isCorrect = turnQuestion.isCorrect(answerGiven);
-        turnPlayer.updateScore(turnQuestion.getPoints(), isCorrect);
+        this.correct = turnQuestion.isCorrect(answerGiven);
+        turnPlayer.updateScore(turnQuestion.getPoints(), correct);
         this.newPlayerScore = turnPlayer.getScore();
     }
 
@@ -38,8 +38,27 @@ public class Turn {
         return turnNumber;
     }
 
-    @Override
-    public String toString() {
-        return "temp";
+    public Player getTurnPlayer() {
+        return turnPlayer;
+    }
+
+    public Category getTurnCategory() {
+        return turnCategory;
+    }
+
+    public Question getTurnQuestion() {
+        return turnQuestion;
+    }
+
+    public char getAnswerGiven() {
+        return answerGiven;
+    }
+
+    public boolean isCorrect() {
+        return correct;
+    }
+
+    public int getTurnFinalScore() {
+        return newPlayerScore;
     }
 }

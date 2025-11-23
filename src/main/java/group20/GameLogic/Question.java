@@ -47,6 +47,10 @@ public class Question {
         return answer == response;
     }
 
+    public char getAnswer() {
+        return answer;
+    }
+
     public String getOption(char optionKey) {
         return options.get(optionKey);
     }

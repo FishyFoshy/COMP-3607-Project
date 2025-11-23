@@ -58,6 +58,10 @@ public class GameState {
         return categories;
     }
 
+    public Turn getCurrentTurn() {
+        return currentTurn;
+    }
+
     public List<Command> getCommandHistory() {
         return commandHistory;
     }
