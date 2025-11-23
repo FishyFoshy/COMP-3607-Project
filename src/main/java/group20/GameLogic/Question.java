@@ -11,8 +11,12 @@ public class Question {
 
     static private int idCounter = 0;
 
-    public Question() {
+    public Question(String text, int points, char answer, Map<Character, String> options) {
         this.id = idCounter++;
+        this.text = text;
+        this.points = points;
+        this.answer = answer;
+        this.options = options;
     }
 
     public void setText(String text) {
@@ -51,7 +55,19 @@ public class Question {
         return answer;
     }
 
-    public String getOption(char optionKey) {
+    public String getOptionText(char optionKey) {
         return options.get(optionKey);
+    }
+
+    public Map<Character, String> getOptions() {
+        return options;
+    }
+
+    public void displayOptions() {
+        System.out.println(text);
+        
+        for (Map.Entry<Character, String> entry : options.entrySet()) {
+            System.out.print("(" + entry.getKey() + ") " + entry.getValue());
+        }
     }
 }

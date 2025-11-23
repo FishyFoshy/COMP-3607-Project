@@ -31,6 +31,10 @@ public class Category {
         return name;
     }
 
+    public Map<Integer, Question> getUnansweredQuestions() {
+        return unansweredQuestions;
+    }
+
     public void displayQuestions(){
         System.out.println("Category: " + name);
 
