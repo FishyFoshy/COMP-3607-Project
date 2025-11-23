@@ -1,7 +1,9 @@
 package group20.GameActionCommands;
 
-public class AnswerQuestionCommand implements Command {
-    public void execute(){
+import group20.GameLogic.GameState;
+
+public class AnswerQuestionCommand extends Command {
+    public void execute(GameState state){
         
     };
 }

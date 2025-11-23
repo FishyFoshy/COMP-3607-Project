@@ -1,6 +1,7 @@
 package group20.GameLogic;
 
 import java.util.Map;
+import group20.GameActionCommands.Command;
 
 public class Game {
     private int id;

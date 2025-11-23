@@ -1,7 +1,9 @@
 package group20.GameActionCommands;
 
-public class EnterPlayerNameCommand implements Command {
-    public void execute(){
-        
+import group20.GameLogic.GameState;
+
+public class EnterPlayerNameCommand extends Command {
+    public void execute(GameState state){
+
     };
 }

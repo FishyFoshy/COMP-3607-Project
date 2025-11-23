@@ -2,6 +2,7 @@ package group20.GameLogic;
 
 import java.util.List;
 import java.util.TreeMap;
+import group20.GameActionCommands.Command;
 
 public class GameState {
     private TreeMap<Integer, Turn> turns;
