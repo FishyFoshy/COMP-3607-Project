@@ -6,6 +6,7 @@ import group20.GameActionCommands.Command;
 
 public class GameState {
     private TreeMap<Integer, Turn> turns;
+    private int playerCount;
     private List<Player> players;
     private List<Category> categories;
     private List<Command> commandHistory;
@@ -13,9 +14,14 @@ public class GameState {
     
     public GameState() {
         this.turns = new TreeMap<>();
+        this.playerCount = 0;
         this.players = new java.util.ArrayList<>();
         this.categories = new java.util.ArrayList<>();
         this.commandHistory = new java.util.ArrayList<>();
+    }
+
+    public void setPlayerCount(int count) {
+        this.playerCount = count;
     }
 
     public void addPlayer(Player player) {
@@ -39,6 +45,10 @@ public class GameState {
         return turns;
     }
 
+    public int getPlayerCount() {
+        return playerCount;
+    }
+
     public List<Player> getPlayers() {
         return players;
     }
@@ -50,6 +60,4 @@ public class GameState {
     public List<Command> getCommandHistory() {
         return commandHistory;
     }
-
-    
 }
