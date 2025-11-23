@@ -1,6 +1,7 @@
 package group20.GameLogic;
 
 import java.util.Map;
+import java.util.TreeMap;
 
 public class Category {
     private int id;
@@ -12,7 +13,7 @@ public class Category {
     public Category(String name) {
         this.id = idCounter++;
         this.name = name;
-        this.unansweredQuestions = new java.util.TreeMap<>();
+        this.unansweredQuestions = new TreeMap<>();
     }
 
     public void addQuestion(Question question) {

@@ -1,5 +1,6 @@
 package group20.GameLogic;
 
+import java.util.HashMap;
 import java.util.Map;
 import group20.GameActionCommands.Command;
 
@@ -13,7 +14,7 @@ public class Game {
     public Game() {
         this.id = idCounter++;
         this.gameState = new GameState();
-        this.commands = new java.util.HashMap<>();
+        this.commands = new HashMap<>();
     }
 
     public void startGame() {

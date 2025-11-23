@@ -1,5 +1,6 @@
 package group20.GameLogic;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -16,9 +17,9 @@ public class GameState {
     public GameState() {
         this.turns = new TreeMap<>();
         this.playerCount = 0;
-        this.players = new java.util.ArrayList<>();
-        this.categories = new java.util.ArrayList<>();
-        this.commandHistory = new java.util.ArrayList<>();
+        this.players = new ArrayList<>();
+        this.categories = new ArrayList<>();
+        this.commandHistory = new ArrayList<>();
     }
 
     public void setPlayerCount(int count) {
@@ -64,5 +65,15 @@ public class GameState {
 
     public List<Command> getCommandHistory() {
         return commandHistory;
+    }
+
+    public boolean isFinished() {
+        for (Category category : categories) {
+            if (category.getUnansweredQuestions().isEmpty()) {
+                categories.remove(category);
+            }
+        }
+
+        return categories.isEmpty();
     }
 }

@@ -1,7 +1,9 @@
 package group20.ReportGenerationStrategy;
 
+import group20.GameLogic.GameState;
+
 public class DOCXReportGenerator implements ReportGenerator {
-    public void generateReport(){
+    public void generateReport(GameState gameState){
         
-    };
+    }
 }
