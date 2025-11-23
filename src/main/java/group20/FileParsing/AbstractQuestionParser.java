@@ -1,17 +1,19 @@
 package group20.FileParsing;
+import java.io.File;
+
 
 public abstract class AbstractQuestionParser {
     protected File file;
 
-    public final run() {}
+    public final void run() {}
 
-    protected abstract determineFileType();
+    protected abstract void determineFileType();
 
-    protected boolean openFile() {}
+    protected void openFile() {}
     
-    protected abstract readFile();
+    protected abstract void readFile();
 
-    protected parseFile() {}
+    protected void parseFile() {}
 
-    protected closeFile() {}
+    protected void closeFile() {}
 }
