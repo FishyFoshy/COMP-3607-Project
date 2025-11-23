@@ -3,7 +3,7 @@ package group20.ReportGenerationStrategy;
 import group20.GameLogic.GameState;
 
 public class TXTReportGenerator implements ReportGenerator {
-    public void generateReport(GameState gameState){
+    public void generateReport(GameState gameState, int gameId){
         
     };
 }
