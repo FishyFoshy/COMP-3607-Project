@@ -13,7 +13,7 @@ public class CLIController {
 
     public int askForPlayerCount(){
         System.out.println("Enter number of players (1-4): ");
-        return this.scanner.nextInt();
+        return Integer.parseInt(this.scanner.nextLine());
     }
 
     public String askForPlayerName(){
@@ -34,12 +34,13 @@ public class CLIController {
     public int askForQuestion(Category category){
         System.out.println("Select a question by typing its point value (eg. 300, 500): ");
         category.displayQuestions();
-        return this.scanner.nextInt();
+        return Integer.parseInt(this.scanner.nextLine());
     }
 
     /**Requests the answer for an {@link Question} from the player, by specifying the option letter */
-    public char askForAnswer(){
+    public char askForAnswer(Question question){
         System.out.println("Enter your answer option (eg. A, C): ");
+        question.displayOptions();
         return this.scanner.nextLine().charAt(0);
     }
 }

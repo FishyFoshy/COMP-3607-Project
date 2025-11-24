@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import group20.GameActionCommands.Command;
+
 /**Holds all the info required for the running of a {@link Game}. Modified by {@link Command}s */
 public class GameState {
     /**The history of {@link Turn}s, with each turn mapped to its turn number */
