@@ -36,6 +36,9 @@ public class Turn {
     }
 
     public void setAnswerGiven(char answer) {
+        if (Character.isLowerCase(answer)) {
+            answer = Character.toUpperCase(answer);
+        }
         this.answerGiven = answer;
     }
 

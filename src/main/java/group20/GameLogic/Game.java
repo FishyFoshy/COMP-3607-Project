@@ -131,7 +131,6 @@ public class Game {
             }
             
             if(gameState.isFinished()) {
-                gameState.setIsOver(true);
                 try {
                     invoker.executeCommand(exitCommand);
                 } catch (InvalidCommandException e) {
