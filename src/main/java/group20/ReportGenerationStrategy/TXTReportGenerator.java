@@ -1,25 +1,21 @@
 package group20.ReportGenerationStrategy;
 
 import group20.GameLogic.GameState;
-
-import java.io.FileWriter;
-import java.io.IOException;
 import group20.GameLogic.Player;
 import group20.GameLogic.Turn;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class TXTReportGenerator implements ReportGenerator {
     @Override
     public void generateReport(GameState state, int gameId) {
         String fileName = "sample_game_report.txt";
-
         try (FileWriter writer = new FileWriter(fileName)) {
 
             writer.write("JEOPARDY PROGRAMMING GAME REPORT\n");
             writer.write("================================\n\n");
-
-            // Formatted to get the GAME"001"
+            // Formatted to get the Game ID's format to include 3 significant figures
             writer.write("Case ID: GAME" + String.format("%03d", gameId) + "\n\n");
-            
 
             // Print players
             writer.write("Players: ");
@@ -38,25 +34,25 @@ public class TXTReportGenerator implements ReportGenerator {
 
                 int pts = t.getTurnQuestion().getPoints();
 
-                writer.write("Turn " + t.getTurnNumber() + ": "
-                        + t.getTurnPlayer().getName()
-                        + " selected " + t.getTurnCategory().getName()
-                        + " for " + pts + " pts\n");
+                writer.write("Turn " + t.getTurnNumber() + ": " +
+                            t.getTurnPlayer().getName() +
+                            " selected " + t.getTurnCategory().getName() +
+                            " for " + pts + " pts\n");
 
                 writer.write("Question: " + t.getTurnQuestion().getText() + "\n");
 
                 // Get the answer text
                 String optionText = t.getTurnQuestion().getOptionText(t.getAnswerGiven());
 
-                // Build correctness line
-                String correctnessText;
+                // Result
+                String resultText;
                 if (t.isCorrect()) {
-                    correctnessText = "Correct (+" + pts + " pts)";
+                    resultText = "Correct (+" + pts + " pts)";
                 } else {
-                    correctnessText = "Incorrect (-" + pts + " pts)";
+                    resultText = "Incorrect (-" + pts + " pts)";
                 }
 
-                writer.write("Answer: " + optionText + " — " + correctnessText + "\n");
+                writer.write("Answer: " + optionText + " - " + resultText + "\n");
 
                 writer.write("Score after turn: "
                         + t.getTurnPlayer().getName()
