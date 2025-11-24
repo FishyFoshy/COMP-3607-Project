@@ -113,7 +113,7 @@ public class PDFReportGenerator implements ReportGenerator {
                 if (t.isCorrect()) {
                     resultText = "Correct (+" + t.getTurnQuestion().getPoints() + " pts)";
                 } else {
-                resultText = "Incorrect (-" + t.getTurnQuestion().getPoints() + " pts)";
+                    resultText = "Incorrect (-" + t.getTurnQuestion().getPoints() + " pts)";
                 }
                 content.showText("Answer: " + t.getTurnQuestion().getOptionText(t.getAnswerGiven()) + " - " + resultText);
                 content.endText();
