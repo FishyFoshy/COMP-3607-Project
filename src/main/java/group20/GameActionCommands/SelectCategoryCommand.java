@@ -4,7 +4,9 @@ import group20.EventLogging.EventLogEntry;
 import group20.GameLogic.Category;
 import group20.GameLogic.GameState;
 import group20.GameLogic.Player;
-
+/**Verifies a given {@link Category} exists in the current {@link GameState}, then updates the current
+ * {@link Turn} by calling {@link Turn.#setTurnCategory()}
+ */
 public class SelectCategoryCommand extends Command {
     private final String selectedCategory;
 

@@ -3,7 +3,6 @@ package group20.GameActionCommands;
 import group20.EventLogging.EventLogEntry;
 import group20.GameLogic.GameState;
 import group20.GameLogic.Player;
-import group20.GameLogic.Question;
 import group20.GameLogic.Turn;
 
 public class AnswerQuestionCommand extends Command {

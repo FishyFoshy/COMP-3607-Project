@@ -2,7 +2,7 @@ package group20.GameActionCommands;
 
 import group20.EventLogging.EventLogEntry;
 import group20.GameLogic.GameState;
-
+/**Sets the player count for the {@link GameState}, verifying it is between 1-4. */
 public class SelectPlayerCountCommand extends Command {
     private final int playerCount;
 

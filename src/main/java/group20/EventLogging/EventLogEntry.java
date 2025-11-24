@@ -1,7 +1,7 @@
 package group20.EventLogging;
 
 import java.time.Instant;
-
+/**Data for each column of the process mining log */
 public class EventLogEntry {
     private String caseID;
     private String playerID;
