@@ -6,7 +6,17 @@ import java.io.FileOutputStream;
 import group20.GameLogic.Player;
 import group20.GameLogic.Turn;
 
+/**
+ * Generates game reports in .docx format using Apache POI.
+ */
 public class DOCXReportGenerator implements ReportGenerator {
+
+    /**
+     * Writes a text summary of the completed game.
+     *
+     * @param state - the game state containing all players and turns
+     * @param gameId - the formatted game identifier
+     */
     @Override
     public void generateReport(GameState state, int gameId) {
         String fileName = "sample_game_report.docx";

@@ -10,7 +10,17 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Generates game reports in .pdf format using PDFBox.
+ */
 public class PDFReportGenerator implements ReportGenerator {
+
+    /**
+     * Writes a text summary of the completed game.
+     *
+     * @param state - the game state containing all players and turns
+     * @param gameId - the formatted game identifier
+     */
     @Override
     public void generateReport(GameState state, int gameId) {
         String fileName = "sample_game_report.pdf";

@@ -6,6 +6,9 @@ import org.w3c.dom.*;
 import group20.GameLogic.Category;
 import group20.GameLogic.Question;
 
+/**
+ * Parser for XML-based Jeopardy question files.
+ */
 public class XMLParser extends AbstractQuestionParser {
 
     @Override
