@@ -4,7 +4,7 @@ import group20.EventLogging.EventLogEntry;
 import group20.GameLogic.GameState;
 import group20.GameLogic.Player;
 import group20.GameLogic.Turn;
-
+/**Evaluates a {@link Player}'s answer for the current {@link Turn}'s {@link group20.GameLogic.Question}, and updates the {@link Player}'s score */
 public class AnswerQuestionCommand extends Command {
     private char selectedAnswer;
 

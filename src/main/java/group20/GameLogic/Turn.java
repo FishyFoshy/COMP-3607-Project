@@ -43,7 +43,7 @@ public class Turn {
     }
 
     /**Checks if {@link #answerGiven} is correct for the selected {@link #turnQuestion}, and updates the {@link #turnPlayer}'s accordingly through
-     * {@link Player.#updateScore(int, boolean)}
+     * {@link Player#updateScore}
      */
     public void evaluateAnswer() {
         this.correct = turnQuestion.isCorrect(answerGiven);

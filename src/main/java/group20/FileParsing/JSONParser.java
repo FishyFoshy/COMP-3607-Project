@@ -2,11 +2,11 @@ package group20.FileParsing;
 
 import java.io.*;
 import java.util.*;
+import org.json.*;
 import group20.GameLogic.Category;
 import group20.GameLogic.Question;
 
 public class JSONParser extends AbstractQuestionParser {
-    private String content;
 
     @Override
     protected boolean determineFileType(String filePath) {
@@ -22,62 +22,44 @@ public class JSONParser extends AbstractQuestionParser {
                 sb.append(line.trim());
             }
         }
-        content = sb.toString();
-        return List.of(content);
+        return List.of(sb.toString());
     }
 
     @Override
     protected Map<String, Category> parseFile(List<String> raw) throws Exception {
-        String json = raw.get(0);
-        json = json.substring(1, json.length() - 1); // remove [ ]
+        String jsonText = raw.get(0);
+        JSONArray array = new JSONArray(jsonText);
 
         Map<String, Category> categories = new TreeMap<>();
-        String[] objects = json.split("\\},\\s*\\{");
 
-        for (String obj : objects) {
-            obj = obj.replace("{", "").replace("}", "");
+        for (int i = 0; i < array.length(); i++) {
+            JSONObject obj = array.getJSONObject(i);
 
-            String categoryName = extract(obj, "\"Category\"");
-            int score = Integer.parseInt(extract(obj, "\"Value\""));
-            String questionText = extract(obj, "\"Question\"");
-            char answer = extract(obj, "\"CorrectAnswer\"").charAt(0);
+            String categoryName = obj.getString("Category");
+            int points = obj.getInt("Value");
+            String questionText = obj.getString("Question");
+            char correctAnswer = obj.getString("CorrectAnswer").charAt(0);
 
+            // Parse nested Options object
+            JSONObject optionsObj = obj.getJSONObject("Options");
             Map<Character, String> options = new HashMap<>();
-            options.put('A', extract(obj, "\"A\""));
-            options.put('B', extract(obj, "\"B\""));
-            options.put('C', extract(obj, "\"C\""));
-            options.put('D', extract(obj, "\"D\""));
+            for (char opt : new char[]{'A','B','C','D'}) {
+                if (optionsObj.has(String.valueOf(opt))) {
+                    options.put(opt, optionsObj.getString(String.valueOf(opt)));
+                }
+            }
 
-            Question question = new Question(questionText, score, answer, options);
+            Question q = new Question(questionText, points, correctAnswer, options);
 
+            // Add question to category
             Category cat = categories.get(categoryName);
             if (cat == null) {
                 cat = new Category(categoryName);
                 categories.put(categoryName, cat);
             }
-            cat.addQuestion(question);
+            cat.addQuestion(q);
         }
+
         return categories;
-    }
-
-    //Extracts the value for a key in the simple JSON object.
-    //Expects format: "Key":"Value" or "Key":Value
-    private String extract(String src, String key) {
-        String search = "\"" + key + "\"";
-        int start = src.indexOf(search);
-        if (start == -1) return "";
-
-        start = src.indexOf(":", start) + 1;
-        int end = src.indexOf(",", start);
-        if (end == -1) end = src.indexOf("}", start);
-        if (end == -1) end = src.length();
-
-        String value = src.substring(start, end).trim();
-
-        // Remove quotes
-        if (value.startsWith("\"") && value.endsWith("\"")) {
-            value = value.substring(1, value.length() - 1);
-        }
-        return value;
     }
 }

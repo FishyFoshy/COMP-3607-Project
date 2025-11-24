@@ -2,6 +2,8 @@ package group20.FileParsing;
 
 import java.io.*;
 import java.util.*;
+import com.opencsv.CSVReader;
+import java.io.FileReader;
 import group20.GameLogic.Category;
 import group20.GameLogic.Question;
 
@@ -36,32 +38,40 @@ public class CSVParser extends AbstractQuestionParser {
     }
 
     @Override
-    protected Map<String, Category> parseFile(List<String> rows) {
+    protected Map<String, Category> parseFile(List<String> raw) throws Exception {
         Map<String, Category> categories = new TreeMap<>();
-
-        for (String row : rows) {
-            String[] f = row.split(",");
-
-            String categoryName = f[0].trim();
-            int score = Integer.parseInt(f[1].trim());
-            String questionText = f[2].trim();
-
-            Map<Character, String> options = new HashMap<>();
-            options.put('A', f[3].trim());
-            options.put('B', f[4].trim());
-            options.put('C', f[5].trim());
-            options.put('D', f[6].trim());
+        
+        try (CSVReader reader = new CSVReader(new FileReader(file))) {
+            String[] line;
             
-            char answer = f[7].trim().charAt(0);
-            Question question = new Question(questionText, score, answer, options);
+            // Read header and ignore
+            reader.readNext();
+            
+            while ((line = reader.readNext()) != null) {
+                
+                if (line.length < 8) continue;
+                String categoryName = line[0].trim();
+                int score = Integer.parseInt(line[1].trim());
+                String questionText = line[2].trim();
+                char answer = line[7].trim().charAt(0);
 
-            Category cat = categories.get(categoryName);
-            if (cat == null) {
-                cat = new Category(categoryName);
-                categories.put(categoryName, cat);
+                Map<Character, String> options = new LinkedHashMap<>();
+                options.put('A', line[3].trim());
+                options.put('B', line[4].trim());
+                options.put('C', line[5].trim());
+                options.put('D', line[6].trim());
+
+                Question question = new Question(questionText, score, answer, options);
+
+                Category cat = categories.get(categoryName);
+                if (cat == null) {
+                    cat = new Category(categoryName);
+                    categories.put(categoryName, cat);
+                }
+                cat.addQuestion(question);
             }
-            cat.addQuestion(question);
         }
+
         return categories;
     }
 

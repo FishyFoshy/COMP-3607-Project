@@ -12,6 +12,7 @@ public class GenerateReportCommand extends Command {
     public GenerateReportCommand(GameState state, int gameID, ReportGenerator reportGenerator){
         super(state);
         this.gameID = gameID;
+        this.reportGenerator = reportGenerator;
     };
 
     public void execute() throws InvalidCommandException{

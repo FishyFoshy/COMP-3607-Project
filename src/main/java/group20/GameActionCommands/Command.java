@@ -1,16 +1,14 @@
-/**
- * Abstract class for the Command design pattern implementation.
- */
-
 package group20.GameActionCommands;
 
 import java.time.Instant;
 
 import group20.EventLogging.EventLogEntry;
 import group20.GameLogic.GameState;
-
+/**Abstract class for the Command design pattern implementation. */
 public abstract class Command {
-    /** Each command stores its timestamp of execution. {@link CommandInvoker} calls {@link #storeTimestamp()} to do so */
+    /** Each command stores its timestamp of execution. 
+     * {@link CommandInvoker} calls {@link #storeTimestamp} to do so 
+    */
     protected Instant timestamp; 
 
     /** Commands modify {@link GameState} */
@@ -32,7 +30,7 @@ public abstract class Command {
     public abstract void execute() throws InvalidCommandException;
 
     /**
-     * Creates an {@link EventLogEntry} object and stores it in the {@link #entry} field. Called at the end of every {@link #execute()}.
+     * Creates an {@link EventLogEntry} object and stores it in the {@link #entry} field. Called at the end of every {@link #execute}.
      */
     public abstract void createEventLogEntry();
 
