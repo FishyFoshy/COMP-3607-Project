@@ -26,7 +26,7 @@ public class GenerateEventLogCommand extends Command {
         writer.write(builder.buildEventLog(commandHistory, String.valueOf(this.gameID)));
     };
 
-    public void createEventLogEntry(){
+    protected void createEventLogEntry(){
         EventLogEntry entry = new EventLogEntry();
         entry.setPlayerID("System");
         entry.setActivity("Generate Event Log");

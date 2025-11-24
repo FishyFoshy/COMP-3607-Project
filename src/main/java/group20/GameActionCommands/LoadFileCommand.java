@@ -55,7 +55,7 @@ public class LoadFileCommand extends Command {
         }
     };
 
-    public void createEventLogEntry(){
+    protected void createEventLogEntry(){
         EventLogEntry entry = new EventLogEntry();
         entry.setPlayerID("System");
         entry.setActivity("Load File");

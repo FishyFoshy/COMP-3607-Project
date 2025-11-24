@@ -32,7 +32,7 @@ public abstract class Command {
     /**
      * Creates an {@link EventLogEntry} object and stores it in the {@link #entry} field. Called at the end of every {@link #execute}.
      */
-    public abstract void createEventLogEntry();
+    protected abstract void createEventLogEntry();
 
     public EventLogEntry getEntry() { return this.entry; }
     

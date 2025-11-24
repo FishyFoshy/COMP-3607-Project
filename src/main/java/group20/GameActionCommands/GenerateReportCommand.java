@@ -20,7 +20,7 @@ public class GenerateReportCommand extends Command {
         createEventLogEntry();
     };
 
-    public void createEventLogEntry(){
+    protected void createEventLogEntry(){
         EventLogEntry entry = new EventLogEntry();
         entry.setPlayerID("System");
         entry.setActivity("Generate Report");

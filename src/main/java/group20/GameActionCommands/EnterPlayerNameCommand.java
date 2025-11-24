@@ -18,7 +18,7 @@ public class EnterPlayerNameCommand extends Command {
         createEventLogEntry();
     };
 
-    public void createEventLogEntry(){
+    protected void createEventLogEntry(){
         EventLogEntry entry = new EventLogEntry();
         entry.setPlayerID(this.name);
         entry.setActivity("Enter Player Name");

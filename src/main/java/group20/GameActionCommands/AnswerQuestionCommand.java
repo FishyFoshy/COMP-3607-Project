@@ -20,7 +20,7 @@ public class AnswerQuestionCommand extends Command {
         createEventLogEntry();
     };
 
-    public void createEventLogEntry(){
+    protected void createEventLogEntry(){
         EventLogEntry entry = new EventLogEntry();
         Turn turn = this.state.getCurrentTurn();
         Player player = turn.getTurnPlayer();

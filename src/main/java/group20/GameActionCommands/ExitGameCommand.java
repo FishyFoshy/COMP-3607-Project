@@ -13,7 +13,7 @@ public class ExitGameCommand extends Command {
         createEventLogEntry();
     };
 
-    public void createEventLogEntry(){
+    protected void createEventLogEntry(){
         EventLogEntry entry = new EventLogEntry();
         entry.setPlayerID("System");
         entry.setActivity("Exit Game");

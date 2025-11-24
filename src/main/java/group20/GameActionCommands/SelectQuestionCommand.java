@@ -28,7 +28,7 @@ public class SelectQuestionCommand extends Command {
         createEventLogEntry();
     };
 
-    public void createEventLogEntry(){
+    protected void createEventLogEntry(){
         EventLogEntry entry = new EventLogEntry();
         Player player = this.state.getCurrentTurn().getTurnPlayer();
         entry.setPlayerID(player.getName());
