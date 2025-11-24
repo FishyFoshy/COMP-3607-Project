@@ -6,14 +6,24 @@ import group20.FileParsing.JSONParser;
 import group20.FileParsing.XMLParser;
 import group20.GameActionCommands.Command;
 import group20.GameActionCommands.CommandInvoker;
+<<<<<<< HEAD
 import group20.GameActionCommands.EnterPlayerNameCommand;
 import group20.GameActionCommands.InvalidCommandException;
 import group20.GameActionCommands.LoadFileCommand;
 import group20.GameActionCommands.SelectPlayerCountCommand;
 
+=======
+/**Controls game flow by instantiating the necessary {@link Command}s and using a {@link CommandInvoker} to execute them */
+>>>>>>> event-logging
 public class Game {
     private int id;
+    /**{@link GameState} holds all the information regarding the current state of the game */
     private GameState gameState;
+<<<<<<< HEAD
+=======
+    private Map<String, Command> commands;
+    /**{@link CommandInvoker} is used to execute commands */
+>>>>>>> event-logging
     private CommandInvoker invoker;
     private CLIController input;
 
@@ -96,4 +106,9 @@ public class Game {
     public void endGame() {
         // Implementation for ending the game
     }
+
+    public int getId(){ return this.id; }
+    public GameState getGameState(){ return this.gameState; }
+    public Map<String, Command> commands(){ return this.commands; }
+    public CommandInvoker getCommandInvoker(){ return this.invoker; }
 }

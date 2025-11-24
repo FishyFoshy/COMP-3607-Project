@@ -4,13 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
+import group20.GameActionCommands.Command;
+/**Holds all the info required for the running of a {@link Game}. Modified by {@link Command}s */
 public class GameState {
+    /**The history of {@link Turn}s, with each turn mapped to its turn number */
     private Map<Integer, Turn> turns;
+
     private int playerCount;
+
+    /**The list of {@link Player} objects for the current {@link Game} */
     private List<Player> players;
+
+    /**The list of {@link Category} objects being used for the current {@link Game} */
     private List<Category> categories;
     private Turn currentTurn;
+
+    /**Boolan indicating whether the {@link Game} is over or not */
     private boolean isOver;
     
     public GameState() {
@@ -33,6 +42,9 @@ public class GameState {
         categories.add(category);
     }
 
+    /**@param player The {@link Player} for the new turn
+     * Creates a new {@link Turn} object with the given {@link Player}, updates the turn history({@link #turns} and {@link #currentTurn})
+     */
     public void startNewTurn(Player player) {
         currentTurn = new Turn(player);
         turns.put(currentTurn.getTurnNumber(), currentTurn);
@@ -62,6 +74,7 @@ public class GameState {
         return currentTurn;
     }
 
+    /**Checks if all {@link #categories} are empty, i.e., there are no more available {@link Question}s to be answered */
     public boolean isFinished() {
         for (Category category : categories) {
             if (category.getUnansweredQuestions().isEmpty()) {
