@@ -76,13 +76,15 @@ public class GameState {
 
     /**Checks if all {@link #categories} are empty, i.e., there are no more available {@link Question}s to be answered */
     public boolean isFinished() {
+        boolean allEmpty = true;
         for (Category category : categories) {
-            if (category.getUnansweredQuestions().isEmpty()) {
-                categories.remove(category);
+            if (!category.getUnansweredQuestions().isEmpty()) {
+                allEmpty = false;
+                break;
             }
         }
 
-        return categories.isEmpty();
+        return allEmpty;
     }
 
     public boolean getIsOver(){

@@ -2,16 +2,8 @@ package group20.GameLogic;
 
 import java.util.List;
 
-import group20.GameActionCommands.AnswerQuestionCommand;
-import group20.GameActionCommands.Command;
-import group20.GameActionCommands.CommandInvoker;
-import group20.GameActionCommands.EnterPlayerNameCommand;
-import group20.GameActionCommands.InvalidCommandException;
-import group20.GameActionCommands.LoadFileCommand;
-import group20.GameActionCommands.SelectCategoryCommand;
-import group20.GameActionCommands.SelectPlayerCountCommand;
-import group20.GameActionCommands.SelectQuestionCommand;
-import group20.GameActionCommands.ExitGameCommand;
+import group20.GameActionCommands.*;
+import group20.ReportGenerationStrategy.*;
 
 /**Controls game flow by instantiating the necessary {@link Command}s and using a {@link CommandInvoker} to execute them */
 public class Game {
@@ -33,6 +25,14 @@ public class Game {
     }
 
     public void startGame() {
+        Command start = new StartGameCommand(gameState);
+
+        try {
+            invoker.executeCommand(start);
+        } catch (InvalidCommandException e) {
+            System.err.println("Failed to start game: " + e.getMessage());
+        }
+
         String filePath = "C:\\Users\\Dominic\\Desktop\\OOP2 Proj\\sample_game_CSV.csv";
         Command load = new LoadFileCommand(gameState, filePath);
         try {
@@ -41,15 +41,16 @@ public class Game {
             e.printStackTrace();
         }
 
-        int count = input.askForPlayerCount();
-        Command countSelector = new SelectPlayerCountCommand(gameState, count);
-
+        // Select player count
         try {
+            int count = input.askForPlayerCount();
+            Command countSelector = new SelectPlayerCountCommand(gameState, count);
             invoker.executeCommand(countSelector);
         } catch (InvalidCommandException e) {
             e.printStackTrace();
         }
-
+            
+        // Enter player names
         for (int index = 0; index < gameState.getPlayerCount(); index++) {
             String name = input.askForPlayerName();
             Command enterName = new EnterPlayerNameCommand(gameState, name);
@@ -59,84 +60,110 @@ public class Game {
                 e.printStackTrace();
             }
         }
+
+        playGame();
     }
 
     public void playGame() {
         int index = 0;
         List<Player> players = gameState.getPlayers();
-        Command exitCommand = new ExitGameCommand(gameState);
+        
         while (!gameState.getIsOver()) {
             Player currentPlayer = players.get(index % gameState.getPlayerCount());
             index++;
-
+            
             gameState.startNewTurn(currentPlayer);
-
+            
             System.out.println("Turn " + index + " Current Player: " + currentPlayer.getName() + "\n");
-
+            
+            // Ask for category
             String category = input.askForCategory(gameState.getCategories());
-
-            if (category.equalsIgnoreCase("quit") || category.equalsIgnoreCase("exit") || category.equalsIgnoreCase("end")) {
-                try {
-                    invoker.executeCommand(exitCommand);
-                } catch (InvalidCommandException e) {
-                    e.printStackTrace();
-                }
-                break;
-            }
-
             Command selectCategory = new SelectCategoryCommand(gameState, category);
             try {
                 invoker.executeCommand(selectCategory);
             } catch (InvalidCommandException e) {
                 e.printStackTrace();
+                break;
             }
             
             Category c = gameState.getCurrentTurn().getTurnCategory();
-
-            if (category.equalsIgnoreCase("quit") || category.equalsIgnoreCase("exit") || category.equalsIgnoreCase("end")) {
-                try {
-                    invoker.executeCommand(exitCommand);
-                } catch (InvalidCommandException e) {
-                    e.printStackTrace();
-                }
-                break;
-            }
-
+            
+            // Ask for question
             int question = input.askForQuestion(c);
             Command selectQuestion = new SelectQuestionCommand(gameState, question);
             try {
                 invoker.executeCommand(selectQuestion);
             } catch (InvalidCommandException e) {
                 e.printStackTrace();
-            }
-
-            Question q = gameState.getCurrentTurn().getTurnQuestion();
-
-            char answer = input.askForAnswer(q);
-
-            if (category.equalsIgnoreCase("quit") || category.equalsIgnoreCase("exit") || category.equalsIgnoreCase("end")) {
-                try {
-                    invoker.executeCommand(exitCommand);
-                } catch (InvalidCommandException e) {
-                    e.printStackTrace();
-                }
                 break;
             }
-
+            
+            Question q = gameState.getCurrentTurn().getTurnQuestion();
+            
+            // Ask for answer
+            char answer = input.askForAnswer(q);
             Command answerQuestion = new AnswerQuestionCommand(gameState, answer);
             try {
                 invoker.executeCommand(answerQuestion);
             } catch (InvalidCommandException e) {
                 e.printStackTrace();
+                break;
             }
             
-            if(gameState.isFinished()) {
-                try {
-                    invoker.executeCommand(exitCommand);
-                } catch (InvalidCommandException e) {
-                    e.printStackTrace();
-                }
+            // Check if the player wants to quit after each turn
+            String exit = input.askForEnding();
+            if (exit.equalsIgnoreCase("quit")){
+                endGame();
             }
+            
+            // Checks if the game has finished after each turn
+            if(gameState.isFinished()) {
+                endGame();
+            }
+        }
+    }
+    
+    public void endGame(){
+        Command exitCommand = new ExitGameCommand(gameState);
+
+        String format = input.askForFileFormat();
+
+        if (format.equalsIgnoreCase(".docx")){
+            ReportGenerator report = new DOCXReportGenerator();
+            Command reportCommand = new GenerateReportCommand(gameState, this.id, report);
+            try {
+                invoker.executeCommand(reportCommand);
+            } catch (InvalidCommandException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (format.equalsIgnoreCase(".pdf")){
+            ReportGenerator report = new PDFReportGenerator();
+            Command reportCommand = new GenerateReportCommand(gameState, this.id, report);
+            try {
+                invoker.executeCommand(reportCommand);
+            } catch (InvalidCommandException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (format.equalsIgnoreCase(".txt")){
+            ReportGenerator report = new TXTReportGenerator();
+            Command reportCommand = new GenerateReportCommand(gameState, this.id, report);
+            try {
+                invoker.executeCommand(reportCommand);
+            } catch (InvalidCommandException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            Command eventLogCommand = new GenerateEventLogCommand(invoker, this.id);
+            invoker.executeCommand(eventLogCommand);
+            invoker.executeCommand(exitCommand);
+        } catch (InvalidCommandException e) {
+            e.printStackTrace();
         }
     }
 }

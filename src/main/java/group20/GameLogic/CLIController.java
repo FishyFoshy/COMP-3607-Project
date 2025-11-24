@@ -21,11 +21,22 @@ public class CLIController {
         return this.scanner.nextLine();
     }
 
+    public String askForEnding(){
+        System.out.println("Type 'quit' to end the game or press Enter to continue: ");
+        return this.scanner.nextLine();
+    }
+
+    public String askForFileFormat(){
+        System.out.println("Enter file format to generate report as (eg. .docx, .pdf, .txt): ");
+        return this.scanner.nextLine();
+    }
+
     /**Requests a {@link Category} from the player, by specifying its name */
     public String askForCategory(List<Category> categories){
         System.out.println("Select a category by typing its name (eg. Functions, Arrays): ");
         for(Category category : categories){
             category.displayQuestions();
+            System.out.println();
         }
         return this.scanner.nextLine();
     }

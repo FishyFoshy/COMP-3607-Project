@@ -13,7 +13,7 @@ import java.io.IOException;
 public class PDFReportGenerator implements ReportGenerator {
     @Override
     public void generateReport(GameState state, int gameId) {
-        String fileName = "sample_game_report.pdf";
+        String fileName = "game_report.pdf";
         try (PDDocument document = new PDDocument()) {
             
             PDPage page = new PDPage();
