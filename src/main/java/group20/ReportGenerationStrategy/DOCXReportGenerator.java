@@ -101,7 +101,7 @@ public class DOCXReportGenerator implements ReportGenerator {
             System.out.println("DOCX Report generated: " + fileName);
 
         } catch (Exception e) {
-            System.out.println("Error writing DOCX report: " + e.getMessage());
+            System.out.println("Error generating DOCX report: " + e.getMessage());
         }
     }
 }

@@ -68,7 +68,7 @@ public class TXTReportGenerator implements ReportGenerator {
             System.out.println("TXT Report generated: " + fileName);
 
         } catch (IOException e) {
-            System.out.println("Error writing report: " + e.getMessage());
+            System.out.println("Error generating TXT report: " + e.getMessage());
         }
     }
 }

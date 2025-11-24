@@ -156,7 +156,7 @@ public class PDFReportGenerator implements ReportGenerator {
             System.out.println("PDF Report generated: " + fileName);
 
         } catch (IOException e) {
-            System.out.println("Error generating PDF: " + e.getMessage());
+            System.out.println("Error generating PDF report: " + e.getMessage());
         }
     }
 }
