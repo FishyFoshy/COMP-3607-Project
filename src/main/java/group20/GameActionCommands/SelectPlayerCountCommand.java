@@ -1,5 +1,6 @@
 package group20.GameActionCommands;
 
+import group20.EventLogging.EventLogEntry;
 import group20.GameLogic.GameState;
 
 public class SelectPlayerCountCommand extends Command {
@@ -16,5 +17,16 @@ public class SelectPlayerCountCommand extends Command {
         }
 
         state.setPlayerCount(playerCount); 
+        createEventLogEntry();
+    }
+
+    public void createEventLogEntry(){
+        EventLogEntry entry = new EventLogEntry();
+        entry.setPlayerID("System");
+        entry.setActivity("Select Player Count");
+        entry.setTimestamp(this.timestamp);
+        entry.setAnswerGiven(String.valueOf(this.playerCount));
+        entry.setResult("N/A");
+        this.entry = entry;
     }
 }

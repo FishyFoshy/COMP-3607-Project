@@ -1,5 +1,6 @@
 package group20.GameActionCommands;
 
+import group20.EventLogging.EventLogEntry;
 import group20.GameLogic.GameState;
 import group20.ReportGenerationStrategy.ReportGenerator;
 
@@ -14,5 +15,15 @@ public class GenerateReportCommand extends Command {
 
     public void execute() throws InvalidCommandException{
         this.reportGenerator.generateReport(state, gameID);
+        createEventLogEntry();
     };
+
+    public void createEventLogEntry(){
+        EventLogEntry entry = new EventLogEntry();
+        entry.setPlayerID("System");
+        entry.setActivity("Generate Report");
+        entry.setTimestamp(this.timestamp);
+        entry.setResult("N/A");
+        this.entry = entry;
+    }
 }

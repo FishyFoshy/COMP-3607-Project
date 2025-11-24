@@ -30,4 +30,9 @@ public class Game {
     public void endGame() {
         // Implementation for ending the game
     }
+
+    public int getId(){ return this.id; }
+    public GameState getGameState(){ return this.gameState; }
+    public Map<String, Command> commands(){ return this.commands; }
+    public CommandInvoker getCommandInvoker(){ return this.invoker; }
 }

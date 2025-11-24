@@ -1,11 +1,14 @@
 package group20.GameActionCommands;
 
 import java.time.Instant;
+
+import group20.EventLogging.EventLogEntry;
 import group20.GameLogic.GameState;
 
 public abstract class Command {
     protected Instant timestamp;
     protected GameState state;
+    protected EventLogEntry entry;
 
     public Command(){}
     
@@ -19,6 +22,10 @@ public abstract class Command {
 
     public abstract void execute() throws InvalidCommandException;
 
+    public abstract void createEventLogEntry();
+
+    public EventLogEntry getEntry() { return this.entry; }
+    
     public String toString(){
         return this.getClass().getSimpleName();
     }

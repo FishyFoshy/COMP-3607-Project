@@ -8,8 +8,8 @@ public class CommandInvoker {
     private List<Command> commandHistory = new ArrayList<>();
     
     public void executeCommand(Command command) throws InvalidCommandException{
-        command.execute(); //Must handle InvalidCommandException in GameController
         command.storeTimestamp();
+        command.execute(); //Must handle InvalidCommandException in GameController
         commandHistory.add(command);
     }
     

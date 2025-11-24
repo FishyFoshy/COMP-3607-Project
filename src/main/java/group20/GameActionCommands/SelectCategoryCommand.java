@@ -1,7 +1,9 @@
 package group20.GameActionCommands;
 
+import group20.EventLogging.EventLogEntry;
 import group20.GameLogic.Category;
 import group20.GameLogic.GameState;
+import group20.GameLogic.Player;
 
 public class SelectCategoryCommand extends Command {
     private final String selectedCategory;
@@ -24,5 +26,17 @@ public class SelectCategoryCommand extends Command {
         if(!found){
             throw new InvalidCommandException("Invalid category:" + selectedCategory);
         }
+        createEventLogEntry();
     };
+
+    public void createEventLogEntry(){
+        EventLogEntry entry = new EventLogEntry();
+        Player player = this.state.getCurrentTurn().getTurnPlayer();
+        entry.setPlayerID(player.getName());
+        entry.setActivity("Select Category");
+        entry.setTimestamp(this.timestamp);
+        entry.setCategory(this.selectedCategory);
+        entry.setScoreAfterPlay(player.getScore());
+        this.entry = entry;
+    }
 }
