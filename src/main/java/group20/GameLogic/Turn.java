@@ -36,6 +36,9 @@ public class Turn {
     }
 
     public void setAnswerGiven(char answer) {
+        if (Character.isLowerCase(answer)) {
+            answer = Character.toUpperCase(answer);
+        }
         this.answerGiven = answer;
     }
 
@@ -44,6 +47,13 @@ public class Turn {
      */
     public void evaluateAnswer() {
         this.correct = turnQuestion.isCorrect(answerGiven);
+
+        if (correct) {
+            System.out.println("Correct Answer!");
+        } else {
+            System.out.println("Incorrect Answer! The correct answer was: " + turnQuestion.getAnswer());
+        }
+        
         turnPlayer.updateScore(turnQuestion.getPoints(), correct);
         this.newPlayerScore = turnPlayer.getScore();
     }

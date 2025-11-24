@@ -1,7 +1,10 @@
 package group20;
 
+import group20.GameLogic.Game;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        Game game = new Game();
+        game.startGame();
     }
 }

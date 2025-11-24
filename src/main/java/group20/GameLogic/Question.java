@@ -74,7 +74,7 @@ public class Question {
         System.out.println(text);
         
         for (Map.Entry<Character, String> entry : options.entrySet()) {
-            System.out.print("(" + entry.getKey() + ") " + entry.getValue());
+            System.out.println("(" + entry.getKey() + ") " + entry.getValue());
         }
     }
 }

@@ -19,7 +19,7 @@ public class TXTReportGenerator implements ReportGenerator {
      */
     @Override
     public void generateReport(GameState state, int gameId) {
-        String fileName = "sample_game_report.txt";
+        String fileName = "game_report.txt";
         try (FileWriter writer = new FileWriter(fileName)) {
 
             writer.write("JEOPARDY PROGRAMMING GAME REPORT\n");

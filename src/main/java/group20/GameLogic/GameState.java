@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import group20.GameActionCommands.Command;
+
 /**Holds all the info required for the running of a {@link Game}. Modified by {@link Command}s */
 public class GameState {
     /**The history of {@link Turn}s, with each turn mapped to its turn number */
@@ -17,7 +17,6 @@ public class GameState {
 
     /**The list of {@link Category} objects being used for the current {@link Game} */
     private List<Category> categories;
-    private List<Command> commandHistory;
     private Turn currentTurn;
 
     /**Boolan indicating whether the {@link Game} is over or not */
@@ -28,7 +27,6 @@ public class GameState {
         this.playerCount = 0;
         this.players = new ArrayList<>();
         this.categories = new ArrayList<>();
-        this.commandHistory = new ArrayList<>();
         this.isOver = false;
     }
 
@@ -50,10 +48,6 @@ public class GameState {
     public void startNewTurn(Player player) {
         currentTurn = new Turn(player);
         turns.put(currentTurn.getTurnNumber(), currentTurn);
-    }
-
-    public void recordCommand(Command command) {
-        commandHistory.add(command);
     }
 
     public void setIsOver(boolean isOver){
@@ -80,19 +74,17 @@ public class GameState {
         return currentTurn;
     }
 
-    public List<Command> getCommandHistory() {
-        return commandHistory;
-    }
-
     /**Checks if all {@link #categories} are empty, i.e., there are no more available {@link Question}s to be answered */
     public boolean isFinished() {
+        boolean allEmpty = true;
         for (Category category : categories) {
-            if (category.getUnansweredQuestions().isEmpty()) {
-                categories.remove(category);
+            if (!category.getUnansweredQuestions().isEmpty()) {
+                allEmpty = false;
+                break;
             }
         }
 
-        return categories.isEmpty();
+        return allEmpty;
     }
 
     public boolean getIsOver(){

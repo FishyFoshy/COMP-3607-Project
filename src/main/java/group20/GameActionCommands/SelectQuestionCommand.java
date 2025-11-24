@@ -22,6 +22,7 @@ public class SelectQuestionCommand extends Command {
         if(unansweredQuestions.containsKey(this.selectedQuestionVal)){
             Question question = unansweredQuestions.get(this.selectedQuestionVal);
             state.getCurrentTurn().setTurnQuestion(question);
+            state.getCurrentTurn().getTurnCategory().removeQuestion(selectedQuestionVal);
         } else {
             throw new InvalidCommandException("Selected question invalid/unavailable");
         } 

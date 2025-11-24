@@ -19,7 +19,7 @@ public class DOCXReportGenerator implements ReportGenerator {
      */
     @Override
     public void generateReport(GameState state, int gameId) {
-        String fileName = "sample_game_report.docx";
+        String fileName = "game_report.docx";
 
         try (XWPFDocument doc = new XWPFDocument()) {
             // Title
