@@ -4,14 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import group20.GameActionCommands.Command;
 
 public class GameState {
     private Map<Integer, Turn> turns;
     private int playerCount;
     private List<Player> players;
     private List<Category> categories;
-    private List<Command> commandHistory;
     private Turn currentTurn;
     private boolean isOver;
     
@@ -20,7 +18,6 @@ public class GameState {
         this.playerCount = 0;
         this.players = new ArrayList<>();
         this.categories = new ArrayList<>();
-        this.commandHistory = new ArrayList<>();
         this.isOver = false;
     }
 
@@ -39,10 +36,6 @@ public class GameState {
     public void startNewTurn(Player player) {
         currentTurn = new Turn(player);
         turns.put(currentTurn.getTurnNumber(), currentTurn);
-    }
-
-    public void recordCommand(Command command) {
-        commandHistory.add(command);
     }
 
     public void setIsOver(boolean isOver){
@@ -67,10 +60,6 @@ public class GameState {
 
     public Turn getCurrentTurn() {
         return currentTurn;
-    }
-
-    public List<Command> getCommandHistory() {
-        return commandHistory;
     }
 
     public boolean isFinished() {
