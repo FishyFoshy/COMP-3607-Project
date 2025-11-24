@@ -37,7 +37,7 @@ public class LoadFileCommand extends Command {
         }
     }
 
-    /** Loads the given file data into {@link GameState} using an {@link AbstractQuestionParser} returned by {@link #getParser()} */
+    /** Loads the given file data into {@link GameState} using an {@link AbstractQuestionParser} returned by {@link #getParser} */
     public void execute() throws InvalidCommandException {
         try {
             AbstractQuestionParser parser = getParser();

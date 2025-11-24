@@ -2,7 +2,7 @@ package group20.GameActionCommands;
 
 import group20.EventLogging.EventLogEntry;
 import group20.GameLogic.GameState;
-/**Sets the {@link GameState} to indicate the game is over, by calling {@link GameState.#setIsOver(boolean)} */
+/**Sets the {@link GameState} to indicate the game is over, by calling {@link GameState#setIsOver} */
 public class ExitGameCommand extends Command {
     public ExitGameCommand(GameState state){
         super(state);

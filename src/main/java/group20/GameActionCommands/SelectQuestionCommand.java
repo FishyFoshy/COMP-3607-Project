@@ -7,7 +7,7 @@ import group20.GameLogic.GameState;
 import group20.GameLogic.Player;
 import group20.GameLogic.Question;
 /**Verifies a given {@link Question} exists in the current {@link GameState}, then updates the current
- * {@link Turn} by calling {@link Turn.#setTurnQuestion()}
+ * {@link group20.GameLogic.Turn} by calling {@link group20.GameLogic.Turn#setTurnQuestion}
  */
 public class SelectQuestionCommand extends Command {
     private int selectedQuestionVal;
