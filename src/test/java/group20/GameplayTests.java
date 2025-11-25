@@ -9,7 +9,6 @@ import group20.Exceptions.CommandExecutionException;
 import group20.FileParsing.FileParserCreator;
 import group20.GameActionCommands.*;
 import group20.GameLogic.*;
-import group20.GameLogic.Player;
 
 import static org.junit.jupiter.api.Assertions.*;
 

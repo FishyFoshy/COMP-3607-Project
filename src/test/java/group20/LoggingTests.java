@@ -10,11 +10,7 @@ import group20.Exceptions.CommandExecutionException;
 import group20.FileParsing.FileParserCreator;
 import group20.GameActionCommands.*;
 import group20.GameLogic.*;
-import group20.GameLogic.Player;
-import group20.ReportGenerationStrategy.DOCXReportGenerator;
-import group20.ReportGenerationStrategy.PDFReportGenerator;
-import group20.ReportGenerationStrategy.ReportGenerator;
-import group20.ReportGenerationStrategy.TXTReportGenerator;
+import group20.ReportGenerationStrategy.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 

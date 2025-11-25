@@ -9,6 +9,8 @@ import group20.GameLogic.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -141,8 +143,8 @@ public class FileParsingTests {
         try {
             result = parser.run(nonExistentFile.toString());
         } catch (Exception e) {
-            assertTrue(e instanceof IOException);
+            assertTrue(e instanceof FileNotFoundException);
         }
-        assertTrue(result.isEmpty());
+        assertNull(result);
     }
 }
