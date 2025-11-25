@@ -7,7 +7,11 @@ import java.io.FileReader;
 import group20.GameLogic.Category;
 import group20.GameLogic.Question;
 
+/**
+ * Parser for CSV-based Jeopardy question files.
+ */
 public class CSVParser extends AbstractQuestionParser {
+    /** Reader for CSV input. */
     private BufferedReader br;
 
     @Override

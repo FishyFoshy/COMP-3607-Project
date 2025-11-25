@@ -1,5 +1,5 @@
 package group20.GameLogic;
-
+/**Holds relevant player information */
 public class Player {
     private int id;
     private String name;
@@ -25,8 +25,9 @@ public class Player {
         return score;
     }
 
-    public void updateScore(int points, boolean correct) {
-        if (correct) {
+    /**@param isAnswerCorrect Increments the player's {@link #score} by @param points if true, otherwise decrements it.  */
+    public void updateScore(int points, boolean isAnswerCorrect) {
+        if (isAnswerCorrect) {
             this.score += points;
         } else {
             this.score -= points;

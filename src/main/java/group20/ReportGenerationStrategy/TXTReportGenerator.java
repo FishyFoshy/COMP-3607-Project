@@ -6,10 +6,20 @@ import group20.GameLogic.Turn;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Generates game reports in .txt format.
+ */
 public class TXTReportGenerator implements ReportGenerator {
+
+    /**
+     * Writes a text summary of the completed game.
+     *
+     * @param state - the game state containing all players and turns
+     * @param gameId - the formatted game identifier
+     */
     @Override
     public void generateReport(GameState state, int gameId) {
-        String fileName = "sample_game_report.txt";
+        String fileName = "game_report.txt";
         try (FileWriter writer = new FileWriter(fileName)) {
 
             writer.write("JEOPARDY PROGRAMMING GAME REPORT\n");

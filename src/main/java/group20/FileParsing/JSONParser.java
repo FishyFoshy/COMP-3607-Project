@@ -6,6 +6,9 @@ import org.json.*;
 import group20.GameLogic.Category;
 import group20.GameLogic.Question;
 
+/**
+ * Parser for JSON-based Jeopardy question files.
+ */
 public class JSONParser extends AbstractQuestionParser {
 
     @Override
