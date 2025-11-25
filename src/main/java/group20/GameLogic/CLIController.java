@@ -6,21 +6,25 @@ import java.util.Scanner;
 public class CLIController {
     private final Scanner scanner = new Scanner(System.in);
 
+    /**Requests a file from the player, by specifying its filepath */
     public String askForFilePath(){
         System.out.println("Enter filepath to Start Game (eg. C:/Users/John/Desktop/sample_game_CSV.csv): ");
         return this.scanner.nextLine();
     }
 
+    /**Requests the amount of players from the player */
     public int askForPlayerCount(){
         System.out.println("Enter number of players (1-4): ");
         return Integer.parseInt(this.scanner.nextLine());
     }
 
+    /**Requests the name of a player */
     public String askForPlayerName(int index){
         System.out.println("Enter Player " + index + " name: ");
         return this.scanner.nextLine();
     }
 
+    /**Requests the file format for the report from the player */
     public String askForFileFormat(){
         System.out.println("Enter file format to generate report as (eg. .docx, .pdf, .txt): ");
         String input = this.scanner.nextLine();
