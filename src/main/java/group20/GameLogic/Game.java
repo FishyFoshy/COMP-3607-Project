@@ -33,7 +33,15 @@ public class Game {
             input.displayMessage(e.getMessage());
         }
 
-        loadGameFile();
+        while (true) {
+            try {
+                loadGameFile();
+                break;
+            } catch (InvalidCommandException e) {
+                input.displayMessage(e.getMessage());
+            }
+        }
+        
 
         // Select player count
         while (true) {
@@ -142,14 +150,10 @@ public class Game {
         }
     }
     
-    public void loadGameFile(){
-        String filePath = "C:\\Users\\Dominic\\Desktop\\OOP2 Proj\\sample_game_CSV.csv";
+    public void loadGameFile() throws InvalidCommandException{
+        String filePath = input.askForFilePath();
         Command load = new LoadFileCommand(gameState, filePath);
-        try {
-            invoker.executeCommand(load);
-        } catch (InvalidCommandException e) {
-            e.printStackTrace();
-        }
+        invoker.executeCommand(load);
     }
     
     public void getPlayerCount() throws InvalidCommandException{
