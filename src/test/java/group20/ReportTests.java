@@ -60,7 +60,7 @@ public class ReportTests {
     }
 
     @Test
-    public void testReportedGeneratedDOCX(){
+    public void testReportGeneratedDOCX(){
         try {
             String reportFilename = tempDir.resolve("game_report.docx").toString();
             ReportGenerator reportGenerator = new DOCXReportGenerator(reportFilename);
@@ -94,7 +94,7 @@ public class ReportTests {
     }
 
     @Test
-    public void testReportedGeneratedPDF(){
+    public void testReportGeneratedPDF(){
         try {
             String reportFilename = tempDir.resolve("game_report.pdf").toString();
             ReportGenerator reportGenerator = new PDFReportGenerator(reportFilename);
@@ -128,7 +128,7 @@ public class ReportTests {
     }
 
     @Test
-    public void testReportedGeneratedTXT(){
+    public void testReportGeneratedTXT(){
         try {
             String reportFilename = tempDir.resolve("game_report.txt").toString();
             ReportGenerator reportGenerator = new TXTReportGenerator(reportFilename);
