@@ -33,7 +33,15 @@ public class Game {
             input.displayMessage(e.getMessage());
         }
 
-        loadGameFile();
+        while (true) {
+            try {
+                loadGameFile();
+                break;
+            } catch (InvalidCommandException e) {
+                input.displayMessage(e.getMessage());
+            }
+        }
+        
 
         // Select player count
         while (true) {
@@ -126,23 +134,26 @@ public class Game {
             input.displayMessage(e.getMessage());
         }
         
-        try {
-            Command eventLogCommand = new GenerateEventLogCommand(invoker, this.id);
-            invoker.executeCommand(eventLogCommand);
+        Command eventLogCommand = new GenerateEventLogCommand(invoker, this.id);
+        invoker.setDelayedCommand(eventLogCommand);
+        
+        try {            
             invoker.executeCommand(exitCommand);
+        } catch (Exception e) {
+            input.displayMessage(e.getMessage());
+        }
+        
+        try {
+            invoker.executeDelayedCommand();
         } catch (InvalidCommandException e) {
             input.displayMessage(e.getMessage());
         }
     }
     
-    public void loadGameFile(){
-        String filePath = "C:\\Users\\Dominic\\Desktop\\OOP2 Proj\\sample_game_JSON.json";
+    public void loadGameFile() throws InvalidCommandException{
+        String filePath = input.askForFilePath();
         Command load = new LoadFileCommand(gameState, filePath);
-        try {
-            invoker.executeCommand(load);
-        } catch (InvalidCommandException e) {
-            e.printStackTrace();
-        }
+        invoker.executeCommand(load);
     }
     
     public void getPlayerCount() throws InvalidCommandException{
@@ -178,15 +189,15 @@ public class Game {
     }
 
     public Command reportFormatter(String format){
-        if (format.equalsIgnoreCase(".docx")){
+        if (format.equalsIgnoreCase(".docx") || format.equalsIgnoreCase("docx")){
             ReportGenerator report = new DOCXReportGenerator();
             Command reportCommand = new GenerateReportCommand(gameState, this.id, report);
             return reportCommand;
-        } else if (format.equalsIgnoreCase(".pdf")){
+        } else if (format.equalsIgnoreCase(".pdf") || format.equalsIgnoreCase("pdf")){
             ReportGenerator report = new PDFReportGenerator();
             Command reportCommand = new GenerateReportCommand(gameState, this.id, report);
             return reportCommand;
-        } else if (format.equalsIgnoreCase(".txt")){
+        } else if (format.equalsIgnoreCase(".txt") || format.equalsIgnoreCase("txt")){
             ReportGenerator report = new TXTReportGenerator();
             Command reportCommand = new GenerateReportCommand(gameState, this.id, report);
             return reportCommand;
