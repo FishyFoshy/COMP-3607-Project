@@ -1,6 +1,7 @@
 package group20.GameActionCommands;
 
 import group20.EventLogging.EventLogEntry;
+import group20.Exceptions.CommandExecutionException;
 import group20.GameLogic.GameState;
 import group20.ReportGenerationStrategy.ReportGenerator;
 /** Generates the game report */
@@ -15,9 +16,13 @@ public class GenerateReportCommand extends Command {
         this.reportGenerator = reportGenerator;
     };
 
-    public void execute() throws InvalidCommandException{
-        this.reportGenerator.generateReport(state, gameID);
-        createEventLogEntry();
+    public void execute() throws CommandExecutionException {
+        try {
+            this.reportGenerator.generateReport(state, gameID);
+            createEventLogEntry();
+        } catch (Exception e) {
+            throw new CommandExecutionException("Failed to generate report: " + e.getMessage(), e);
+        }  
     };
 
     protected void createEventLogEntry(){

@@ -3,6 +3,8 @@ package group20.GameActionCommands;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import group20.Exceptions.CommandExecutionException;
 /**
  * Invoker for the Command design pattern implementation.
  */
@@ -13,7 +15,7 @@ public class CommandInvoker {
     private List<Command> commandHistory = new ArrayList<>();
     private Command delayedCommand;
 
-    public void executeCommand(Command command) throws InvalidCommandException {
+    public void executeCommand(Command command) throws CommandExecutionException {
         command.storeTimestamp();
         command.execute();
         commandHistory.add(command);
@@ -29,7 +31,7 @@ public class CommandInvoker {
         commandHistory.add(command);
     }
 
-    public void executeDelayedCommand() throws InvalidCommandException {
+    public void executeDelayedCommand() throws CommandExecutionException {
         this.delayedCommand.execute();
     }
 }

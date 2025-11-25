@@ -31,12 +31,8 @@ public class AnswerQuestionCommand extends Command {
         entry.setCategory(turn.getTurnCategory().getName());
         entry.setQuestionValue(turn.getTurnQuestion().getPoints());
         entry.setAnswerGiven(turn.getTurnQuestion().getOptionText(this.selectedAnswer));
-        if(turn.isCorrect() == true) {
-            entry.setResult("Correct");
-        } else {
-            entry.setResult("Incorrect");
-        }
-        entry.setScoreAfterPlay(player.getScore());;
+        entry.setResult(turn.isCorrect() ? "Correct" : "Incorrect");
+        entry.setScoreAfterPlay(String.valueOf(player.getScore()));
         this.entry = entry;
     }
 }

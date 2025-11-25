@@ -1,6 +1,7 @@
 package group20.GameActionCommands;
 
 import group20.EventLogging.EventLogEntry;
+import group20.Exceptions.CommandExecutionException;
 import group20.GameLogic.GameState;
 /**Sets the player count for the {@link GameState}, verifying it is between 1-4. */
 public class SelectPlayerCountCommand extends Command {
@@ -11,11 +12,7 @@ public class SelectPlayerCountCommand extends Command {
         this.playerCount = playerCount;
     }
 
-    public void execute() throws InvalidCommandException{
-        if(playerCount < 1 || playerCount > 4){
-            throw new InvalidCommandException("Player count must be between 1-4");
-        }
-
+    public void execute() throws CommandExecutionException{
         state.setPlayerCount(playerCount); 
         createEventLogEntry();
     }

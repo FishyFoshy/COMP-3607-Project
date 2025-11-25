@@ -47,9 +47,12 @@ public class GameState {
      */
     public void startNewTurn(Player player) {
         currentTurn = new Turn(player);
-        turns.put(currentTurn.getTurnNumber(), currentTurn);
     }
 
+    public void endTurn(){
+        turns.put(currentTurn.getTurnNumber(), currentTurn);
+    }
+    
     public void setIsOver(boolean isOver){
         this.isOver = isOver;
     }

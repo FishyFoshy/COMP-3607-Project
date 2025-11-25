@@ -43,7 +43,8 @@ public class Category {
         System.out.println("Category: " + name);
 
         for (Integer key : unansweredQuestions.keySet()) {
-            System.out.println(key);
+            System.out.print(key + " ");
         }
+        System.out.println();
     }
 }

@@ -7,7 +7,7 @@ public class CLIController {
     private final Scanner scanner = new Scanner(System.in);
 
     public String askForFilePath(){
-        System.out.println("Enter filepath to Start Game (eg. sample_game.csv, sample_game.json): ");
+        System.out.println("Enter filepath to Start Game (eg. C:/Users/John/Desktop/sample_game_CSV.csv): ");
         return this.scanner.nextLine();
     }
 
@@ -16,46 +16,73 @@ public class CLIController {
         return Integer.parseInt(this.scanner.nextLine());
     }
 
-    public String askForPlayerName(){
-        System.out.println("Enter Name: ");
-        return this.scanner.nextLine();
-    }
-
-    public String askForEnding(){
-        System.out.println("Type 'quit' to end the game or press Enter to continue: ");
+    public String askForPlayerName(int index){
+        System.out.println("Enter Player " + index + " name: ");
         return this.scanner.nextLine();
     }
 
     public String askForFileFormat(){
         System.out.println("Enter file format to generate report as (eg. .docx, .pdf, .txt): ");
-        return this.scanner.nextLine();
+        String input = this.scanner.nextLine();
+        return input.toLowerCase();
     }
 
     public void displayMessage(String message){
         System.out.println(message);
     }
 
-    /**Requests a {@link Category} from the player, by specifying its name */
-    public String askForCategory(List<Category> categories){
+    public void displayCategories(List<Category> categories){
         System.out.println("Select a category by typing its name (eg. Functions, Arrays): ");
         for(Category category : categories){
             category.displayQuestions();
             System.out.println();
         }
-        return this.scanner.nextLine();
     }
 
-    /**Requests a {@link Question} from the player, by specifying its point value */
-    public int askForQuestion(Category category){
+    /**Requests a {@link Category} from the player, by specifying its name */
+    public String askForCategory(){
+        return this.scanner.nextLine().toLowerCase();
+    }
+
+    public void displayCategoryQuestions(Category category){
         System.out.println("Select a question by typing its point value (eg. 300, 500): ");
         category.displayQuestions();
+    }
+
+        
+    /**Requests a {@link Question} from the player, by specifying its point value */
+    public int askForQuestion(){
         return Integer.parseInt(this.scanner.nextLine());
     }
 
-    /**Requests the answer for an {@link Question} from the player, by specifying the option letter */
-    public char askForAnswer(Question question){
+    public void displayQuestionOptions(Question question){
         System.out.println("Enter your answer option (eg. A, C): ");
         question.displayOptions();
-        return this.scanner.nextLine().charAt(0);
+    }
+
+    /**Requests the answer for an {@link Question} from the player, by specifying the option letter */
+    public char askForAnswer(){
+        return Character.toUpperCase(this.scanner.nextLine().charAt(0));
+    }
+
+    public void displayFailedStart(String message){
+        System.out.println("Failed to start game: " + message);
+    }
+
+    public void displayFailedEnd(String message){
+        System.out.println("Failed to end game: " + message);
+    }
+
+    public void displayTurnMessage(int turnIndex, String playerName){
+        System.out.println("[Turn " + turnIndex + "] Current Player: " + playerName);
+        System.out.println("Type 'quit' to exit the game.\n");
+    }
+
+    public void displayEarlyEndGame(){
+        System.out.println("Player chose to quit the game");
+    }
+
+    public void displayEventLogGenerated(String filename){
+        System.out.println("Event log generated as: " + filename);
     }
 }

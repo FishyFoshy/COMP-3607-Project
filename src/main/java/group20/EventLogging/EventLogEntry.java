@@ -11,7 +11,7 @@ public class EventLogEntry {
     private int questionValue;
     private String answerGiven;
     private String result;
-    private int scoreAfterPlay;
+    private String scoreAfterPlay;
 
     public EventLogEntry() {}
 
@@ -23,7 +23,7 @@ public class EventLogEntry {
     public int getQuestionValue() { return questionValue; }
     public String getAnswerGiven() { return answerGiven; }
     public String getResult() { return result; }
-    public int getScoreAfterPlay() { return scoreAfterPlay; }
+    public String getScoreAfterPlay() { return scoreAfterPlay; }
 
     public void setCaseID(String caseID) { this.caseID = caseID; }
     public void setPlayerID(String playerID) { this.playerID = playerID; }
@@ -33,6 +33,6 @@ public class EventLogEntry {
     public void setQuestionValue(int questionValue) { this.questionValue = questionValue; }
     public void setAnswerGiven(String answerGiven) { this.answerGiven = answerGiven; }
     public void setResult(String result) { this.result = result; }
-    public void setScoreAfterPlay(int scoreAfterPlay) { this.scoreAfterPlay = scoreAfterPlay; }
+    public void setScoreAfterPlay(String scoreAfterPlay) { this.scoreAfterPlay = scoreAfterPlay; }
 }
 

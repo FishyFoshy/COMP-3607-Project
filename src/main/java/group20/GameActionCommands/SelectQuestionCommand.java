@@ -3,6 +3,7 @@ package group20.GameActionCommands;
 import java.util.Map;
 
 import group20.EventLogging.EventLogEntry;
+import group20.Exceptions.CommandExecutionException;
 import group20.GameLogic.GameState;
 import group20.GameLogic.Player;
 import group20.GameLogic.Question;
@@ -17,14 +18,14 @@ public class SelectQuestionCommand extends Command {
         this.selectedQuestionVal = selectedQuestionVal;
     }
 
-    public void execute() throws InvalidCommandException {    
+    public void execute() throws CommandExecutionException {    
         Map<Integer, Question> unansweredQuestions = state.getCurrentTurn().getTurnCategory().getUnansweredQuestions();
         if(unansweredQuestions.containsKey(this.selectedQuestionVal)){
             Question question = unansweredQuestions.get(this.selectedQuestionVal);
             state.getCurrentTurn().setTurnQuestion(question);
             state.getCurrentTurn().getTurnCategory().removeQuestion(selectedQuestionVal);
         } else {
-            throw new InvalidCommandException("Selected question invalid/unavailable");
+            throw new CommandExecutionException("Invalid question:" + selectedQuestionVal + ". Please try again.");
         } 
         createEventLogEntry();
     };
@@ -37,7 +38,7 @@ public class SelectQuestionCommand extends Command {
         entry.setTimestamp(this.timestamp);
         entry.setCategory(this.state.getCurrentTurn().getTurnCategory().getName());
         entry.setQuestionValue(this.selectedQuestionVal);
-        entry.setScoreAfterPlay(player.getScore());
+        entry.setScoreAfterPlay(String.valueOf(player.getScore()));;
         this.entry = entry;
     }
 }
