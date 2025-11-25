@@ -10,6 +10,15 @@ import java.io.IOException;
  * Generates game reports in .txt format.
  */
 public class TXTReportGenerator implements ReportGenerator {
+    private String fileName;
+
+    public TXTReportGenerator() {
+        this.fileName = "game_report.txt";
+    }
+
+    public TXTReportGenerator(String fileName) {
+        this.fileName = fileName;
+    }
 
     /**
      * Writes a text summary of the completed game.
@@ -19,7 +28,6 @@ public class TXTReportGenerator implements ReportGenerator {
      */
     @Override
     public void generateReport(GameState state, int gameId) {
-        String fileName = "game_report.txt";
         try (FileWriter writer = new FileWriter(fileName)) {
 
             writer.write("JEOPARDY PROGRAMMING GAME REPORT\n");

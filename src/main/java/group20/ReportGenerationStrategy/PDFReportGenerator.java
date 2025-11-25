@@ -14,6 +14,15 @@ import java.io.IOException;
  * Generates game reports in .pdf format using PDFBox.
  */
 public class PDFReportGenerator implements ReportGenerator {
+    private String fileName;
+
+    public PDFReportGenerator() {
+        this.fileName = "game_report.pdf";
+    }
+
+    public PDFReportGenerator(String fileName) {
+        this.fileName = fileName;
+    }
 
     /**
      * Writes a text summary of the completed game.
@@ -23,7 +32,6 @@ public class PDFReportGenerator implements ReportGenerator {
      */
     @Override
     public void generateReport(GameState state, int gameId) {
-        String fileName = "game_report.pdf";
         try (PDDocument document = new PDDocument()) {
             
             PDPage page = new PDPage();
