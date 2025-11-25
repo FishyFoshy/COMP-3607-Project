@@ -31,6 +31,10 @@ public class CLIController {
         return this.scanner.nextLine();
     }
 
+    public void displayMessage(String message){
+        System.out.println(message);
+    }
+
     /**Requests a {@link Category} from the player, by specifying its name */
     public String askForCategory(List<Category> categories){
         System.out.println("Select a category by typing its name (eg. Functions, Arrays): ");
