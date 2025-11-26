@@ -8,7 +8,7 @@ public class CLIController {
 
     /**Requests a file from the player, by specifying its filepath */
     public String askForFilePath(){
-        System.out.println("Enter filepath to Start Game (eg. C:/Users/John/Desktop/sample_game_CSV.csv): ");
+        System.out.println("Enter filepath to Start Game. Supported formats: .xml, .json, .csv (eg. C:/Users/John/Desktop/sample_game_CSV.csv): ");
         return this.scanner.nextLine();
     }
 
@@ -86,8 +86,8 @@ public class CLIController {
         System.out.println("Failed to end game: " + message);
     }
 
-    public void displayTurnMessage(int turnIndex, String playerName){
-        System.out.println("[Turn " + turnIndex + "] Current Player: " + playerName);
+    public void displayTurnMessage(int turnIndex, String playerName, int points){
+        System.out.println("[Turn " + turnIndex + "] Current Player: " + playerName + " - " + points + " points");
         System.out.println("Type 'quit' to exit the game.\n");
     }
 

@@ -167,7 +167,7 @@ public class Game {
             index++;
             
             gameState.startNewTurn(currentPlayer);
-            cliController.displayTurnMessage(index, currentPlayer.getName());
+            cliController.displayTurnMessage(index, currentPlayer.getName(), currentPlayer.getScore());
             
             try {
                 askForCategory();
