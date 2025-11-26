@@ -20,10 +20,8 @@ public class Turn {
     /**The score of the {@link #turnPlayer} after giving their {@link #answerGiven} */
     private int newPlayerScore;
 
-    static private int turnCounter = 1;
-
-    public Turn(Player player){
-        this.turnNumber = turnCounter++;
+    public Turn(Player player, int turnNumber) {
+        this.turnNumber = turnNumber;
         this.turnPlayer = player;
     }
 
