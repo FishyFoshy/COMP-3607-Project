@@ -55,8 +55,12 @@ public class CLIController {
 
         
     /**Requests a {@link Question} from the player, by specifying its point value */
-    public int askForQuestion(){
+    public int askForQuestion() throws NumberFormatException {
         return Integer.parseInt(this.scanner.nextLine());
+    }
+
+    public void displayInvalidIntError(){
+        System.out.println("Input must be a number.");
     }
 
     public void displayQuestionOptions(Question question){

@@ -66,6 +66,8 @@ public class Game {
                 return;
             } catch (CommandCreationException | CommandExecutionException e) {
                 cliController.displayMessage(e.getMessage());
+            } catch (NumberFormatException e) {
+                cliController.displayInvalidIntError();
             }
         }
     }
@@ -112,6 +114,8 @@ public class Game {
 
             } catch (CommandExecutionException e) {
                 cliController.displayMessage(e.getMessage());
+            } catch (NumberFormatException e) {
+                cliController.displayInvalidIntError();
             }
         }
     }
