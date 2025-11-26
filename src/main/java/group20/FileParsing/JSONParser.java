@@ -17,7 +17,7 @@ public class JSONParser extends AbstractQuestionParser {
     }
 
     @Override
-    protected List<String> readFile() throws Exception {
+    protected List<String> readFile() throws IOException {
         StringBuilder sb = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;

@@ -10,6 +10,15 @@ import group20.GameLogic.Turn;
  * Generates game reports in .docx format using Apache POI.
  */
 public class DOCXReportGenerator implements ReportGenerator {
+    private String fileName;
+
+    public DOCXReportGenerator() {
+        this.fileName = "game_report.docx";
+    }
+
+    public DOCXReportGenerator(String fileName) {
+        this.fileName = fileName;
+    }
 
     /**
      * Writes a text summary of the completed game.
@@ -19,9 +28,7 @@ public class DOCXReportGenerator implements ReportGenerator {
      */
     @Override
     public void generateReport(GameState state, int gameId) {
-        String fileName = "game_report.docx";
-
-        try (XWPFDocument doc = new XWPFDocument()) {
+        try (XWPFDocument doc = new XWPFDocument(); FileOutputStream out = new FileOutputStream(fileName)) {
             // Title
             XWPFParagraph title = doc.createParagraph();
             XWPFRun runTitle = title.createRun();
@@ -107,7 +114,7 @@ public class DOCXReportGenerator implements ReportGenerator {
             }
 
             // Write to file
-            doc.write(new FileOutputStream(fileName));
+            doc.write(out);
             System.out.println("DOCX Report generated: " + fileName);
 
         } catch (Exception e) {

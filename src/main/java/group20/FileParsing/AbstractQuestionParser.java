@@ -1,8 +1,12 @@
 package group20.FileParsing;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+
+import group20.Exceptions.InvalidFileFormatException;
 import group20.GameLogic.Category;
 
 /** Template class for parsing question files into {@link Category} objects. */
@@ -17,15 +21,15 @@ public abstract class AbstractQuestionParser {
      * @return map of category names to their corresponding {@link Category} objects
      * @throws Exception - if reading or parsing fails
      */
-    public final Map<String, Category> run(String filePath) throws Exception {
+    public final Map<String, Category> run(String filePath) throws FileNotFoundException, InvalidFileFormatException, Exception {
         if (!determineFileType(filePath)) {
             System.out.println("Cannot parse file: " + filePath);
-            return Map.of();
+            throw new InvalidFileFormatException("Unsupported file format");
         }
 
         if (!openFile(filePath)) {
             System.out.println("File not found: " + filePath);
-            return Map.of();
+            throw new FileNotFoundException(filePath);
         }
         List<String> raw = readFile();
         Map<String, Category> categories = parseFile(raw);
@@ -59,7 +63,7 @@ public abstract class AbstractQuestionParser {
      * @return list of raw file lines or content segments
      * @throws Exception - if reading fails
      */
-    protected abstract List<String> readFile() throws Exception;
+    protected abstract List<String> readFile() throws IOException;
 
     /**
      * Parses the raw content and builds {@link Category} objects.

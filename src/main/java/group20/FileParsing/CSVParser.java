@@ -3,6 +3,7 @@ package group20.FileParsing;
 import java.io.*;
 import java.util.*;
 import com.opencsv.CSVReader;
+
 import java.io.FileReader;
 import group20.GameLogic.Category;
 import group20.GameLogic.Question;
@@ -32,7 +33,7 @@ public class CSVParser extends AbstractQuestionParser {
     }
 
     @Override
-    protected List<String> readFile() throws Exception {
+    protected List<String> readFile() throws IOException {
         List<String> lines = new ArrayList<>();
         String line;
         while ((line = br.readLine()) != null) {

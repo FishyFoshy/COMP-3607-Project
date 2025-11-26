@@ -1,5 +1,6 @@
 package group20.FileParsing;
 
+import java.io.IOException;
 import java.util.*;
 import javax.xml.parsers.*;
 import org.w3c.dom.*;
@@ -17,7 +18,7 @@ public class XMLParser extends AbstractQuestionParser {
     }
 
     @Override
-    protected List<String> readFile() throws Exception {
+    protected List<String> readFile() throws IOException {
         return List.of(file.getAbsolutePath());
     }
 
