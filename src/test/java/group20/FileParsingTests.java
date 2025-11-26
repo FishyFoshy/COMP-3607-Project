@@ -52,6 +52,23 @@ public class FileParsingTests {
     }
 
     @Test
+    public void testCVSParserFail(){
+        String csvContent = "Category,Value,OptionA,OptionB,OptionC,OptionD,CorrectAnswer\nFunctions,100,return,void,int,empty,B";
+        Path csvFile = tempDir.resolve("test.csv");
+        try {
+            Files.writeString(csvFile, csvContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        AbstractQuestionParser parser = new CSVParser();
+        try {
+            result = parser.run(csvFile.toString());
+        } catch (Exception e) {
+            assertTrue(e instanceof InvalidFileFormatException);
+        }
+    }
+
+    @Test
     public void testJSONParser(){
         String jsonContent = "[{ \"Category\": \"Functions\", \"Value\": 100, \"Question\": \"Which keyword is used to define a function returning no value?\", \"Options\": { \"A\": \"return\", \"B\": \"void\", \"C\": \"int\", \"D\": \"empty\" }, \"CorrectAnswer\": \"B\" }]";
         Path jsonFile = tempDir.resolve("test.json");
@@ -79,6 +96,23 @@ public class FileParsingTests {
         assertEquals("int", q.getOptionText('C'));
         assertEquals("empty", q.getOptionText('D'));
         assertEquals('B', q.getAnswer());
+    }
+
+    @Test
+    public void testJSONParserFail(){
+        String jsonContent = "[{ \\\"Category\\\": \\\"Functions\\\", \\\"Value\\\": 100, \\\"Question\\\": \\\"Which keyword is used to define a function returning no value?\\\", \\\"Options\\\": { \\\"A\\\": \\\"return\\\", \\\"B\\\": \\\"void\\\", \\\"C\\\": \\\"int\\\" }, \\\"CorrectAnswer\\\": \\\"B\\\" }]";
+        Path jsonFile = tempDir.resolve("test.csv");
+        try {
+            Files.writeString(jsonFile, jsonContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        AbstractQuestionParser parser = new CSVParser();
+        try {
+            result = parser.run(jsonFile.toString());
+        } catch (Exception e) {
+            assertTrue(e instanceof InvalidFileFormatException);
+        }
     }
 
     @Test
@@ -122,6 +156,35 @@ public class FileParsingTests {
         assertEquals("int", q.getOptionText('C'));
         assertEquals("empty", q.getOptionText('D'));
         assertEquals('B', q.getAnswer());
+    }
+
+    @Test
+    public void testXMLParserFail(){
+        String xmlContent = "<JeopardyQuestions>\n" +
+            "<QuestionItem>\n" +
+            "<Category>Functions</Category>\n" +
+            "<QuestionText>Which keyword is used to define a function returning no value?</QuestionText>\n" +
+            "<Options>\n" +
+            "<OptionA>return</OptionA>\n" +
+            "<OptionB>void</OptionB>\n" +
+            "<OptionC>int</OptionC>\n" +
+            "<OptionD>empty</OptionD>\n" +
+            "</Options>\n" +
+            "<CorrectAnswer>B</CorrectAnswer>\n" +
+            "</QuestionItem>\n" +
+            "</JeopardyQuestions>";
+        Path xmlFile = tempDir.resolve("test.xml");
+        try {
+            Files.writeString(xmlFile, xmlContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        AbstractQuestionParser parser = new XMLParser();
+        try {
+            result = parser.run(xmlFile.toString());
+        } catch (Exception e) {
+            assertTrue(e instanceof InvalidFileFormatException);
+        }
     }
 
     @Test
