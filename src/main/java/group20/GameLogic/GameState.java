@@ -5,21 +5,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-/**Holds all the info required for the running of a {@link Game}. Modified by {@link Command}s */
+/** Holds all the info required for the running of a {@link group20.GameLogic.Game}. Modified by {@link group20.GameActionCommands.Command}s */
 public class GameState {
     /**The history of {@link Turn}s, with each turn mapped to its turn number */
     private Map<Integer, Turn> turns;
 
     private int playerCount;
 
-    /**The list of {@link Player} objects for the current {@link Game} */
+    /**The list of {@link Player} objects for the current {@link group20.GameLogic.Game} */
     private List<Player> players;
 
-    /**The list of {@link Category} objects being used for the current {@link Game} */
+    /**The list of {@link Category} objects being used for the current {@link group20.GameLogic.Game} */
     private List<Category> categories;
     private Turn currentTurn;
 
-    /**Boolan indicating whether the {@link Game} is over or not */
+    /**Boolan indicating whether the {@link group20.GameLogic.Game} is over or not */
     private boolean isOver;
     
     public GameState() {

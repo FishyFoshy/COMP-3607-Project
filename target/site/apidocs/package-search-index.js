@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"group20"},{"l":"group20.EventLogging"},{"l":"group20.Exceptions"},{"l":"group20.FileParsing"},{"l":"group20.GameActionCommands"},{"l":"group20.GameLogic"},{"l":"group20.ReportGenerationStrategy"}];updateSearchResults();

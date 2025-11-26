@@ -1,2 +1,6 @@
 *.class
-/target
+*.idea
+*.vscode
+/target/*
+!/target/site
+!/target/site/apidocs/
