@@ -173,6 +173,7 @@ public class GameplayTests {
 
         try {
             invoker.executeCommand(commandCreator.createAnswerQuestionCommand(gameState, 'A'));
+            assertEquals('A', gameState.getCurrentTurn().getAnswerGiven());
             assertEquals(-100, player.getScore());
         } catch (CommandCreationException | CommandExecutionException e) {
         }
