@@ -2,11 +2,8 @@ package group20.FileParsing;
 
 import java.io.IOException;
 import java.util.*;
-
 import javax.xml.parsers.*;
-
 import java.io.FileNotFoundException;
-
 import org.w3c.dom.*;
 
 import group20.Exceptions.InvalidFileFormatException;
@@ -17,6 +14,8 @@ import group20.GameLogic.Question;
  * Parser for XML-based Jeopardy question files.
  */
 public class XMLParser extends AbstractQuestionParser {
+    private static final Set<Integer> validScores = Set.of(100, 200, 300, 400, 500);
+    private static final Set<Character> validAnswers = Set.of('A', 'B', 'C', 'D');
 
     @Override
     protected boolean determineFileType(String filePath) {
@@ -25,7 +24,6 @@ public class XMLParser extends AbstractQuestionParser {
 
     @Override
     protected List<String> readFile() {
-        // XML parsing is handled later; return file path
         return List.of(file.getAbsolutePath());
     }
 
@@ -52,9 +50,18 @@ public class XMLParser extends AbstractQuestionParser {
                     String categoryName = e.getElementsByTagName("Category")
                                            .item(0).getTextContent();
 
+                    // Validate Score
                     int score = Integer.parseInt(
-                        e.getElementsByTagName("Value").item(0).getTextContent()
+                        e.getElementsByTagName("Value")
+                         .item(0).getTextContent()
                     );
+
+                    if (!validScores.contains(score)) {
+                        throw new InvalidFileFormatException(
+                            "Invalid score at QuestionItem[" + i + "]: " + score +
+                            ". Expected 100, 200, 300, 400, or 500."
+                        );
+                    }
 
                     String questionText = e.getElementsByTagName("QuestionText")
                                            .item(0).getTextContent();
@@ -67,14 +74,24 @@ public class XMLParser extends AbstractQuestionParser {
                     options.put('C', opts.getElementsByTagName("OptionC").item(0).getTextContent());
                     options.put('D', opts.getElementsByTagName("OptionD").item(0).getTextContent());
 
+                    // Validate Correct Answer
                     char answer = e.getElementsByTagName("CorrectAnswer")
                                    .item(0).getTextContent().charAt(0);
+
+                    if (!validAnswers.contains(answer)) {
+                        throw new InvalidFileFormatException(
+                            "Invalid correct answer at QuestionItem[" + i + "]: '" + answer +
+                            "'. Expected A, B, C, or D."
+                        );
+                    }
 
                     Question q = new Question(questionText, score, answer, options);
 
                     categories.computeIfAbsent(categoryName, Category::new)
                               .addQuestion(q);
 
+                } catch (InvalidFileFormatException valEx) {
+                    throw valEx; // rethrow validation errors directly
                 } catch (Exception inner) {
                     throw new InvalidFileFormatException(
                         "Malformed <QuestionItem> at index " + i, inner
@@ -86,6 +103,8 @@ public class XMLParser extends AbstractQuestionParser {
             throw new FileNotFoundException("XML file not found: " + filePath);
         } catch (IOException ioe) {
             throw new IOException("Error reading XML: " + filePath, ioe);
+        } catch (InvalidFileFormatException iffe) {
+            throw iffe;
         } catch (Exception ex) {
             throw new InvalidFileFormatException("Invalid XML structure.", ex);
         }
