@@ -46,7 +46,7 @@ public class GameState {
      * Creates a new {@link Turn} object with the given {@link Player}, updates the turn history({@link #turns} and {@link #currentTurn})
      */
     public void startNewTurn(Player player) {
-        currentTurn = new Turn(player);
+        currentTurn = new Turn(player, turns.size() + 1);
     }
 
     public void endTurn(){
