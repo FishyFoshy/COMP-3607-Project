@@ -123,6 +123,7 @@ public class Game {
                 char answer = cliController.askForAnswer();
                 Command answerQuestion = commandCreator.createAnswerQuestionCommand(gameState, answer);
                 invoker.executeCommand(answerQuestion);
+                cliController.displayAnswerResult(this.gameState.getCurrentTurn());
                 return;
             } catch (CommandCreationException | CommandExecutionException e) {
                 cliController.displayMessage(e.getMessage());

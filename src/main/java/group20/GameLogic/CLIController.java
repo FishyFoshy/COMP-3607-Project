@@ -69,6 +69,15 @@ public class CLIController {
         return Character.toUpperCase(this.scanner.nextLine().charAt(0));
     }
 
+    public void displayAnswerResult(Turn turn){
+        if (turn.isCorrect()) {
+            System.out.println("Correct Answer!");
+        } else {
+            System.out.println("Incorrect Answer! The correct answer was: " + turn.getTurnQuestion().getAnswer());
+        }
+        System.out.println("You now have " + turn.getTurnFinalScore() + " points.");
+    }
+
     public void displayFailedStart(String message){
         System.out.println("Failed to start game: " + message);
     }
