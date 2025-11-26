@@ -2,7 +2,10 @@ package group20.FileParsing;
 
 import java.io.*;
 import java.util.*;
+
 import org.json.*;
+
+import group20.Exceptions.InvalidFileFormatException;
 import group20.GameLogic.Category;
 import group20.GameLogic.Question;
 
@@ -19,48 +22,64 @@ public class JSONParser extends AbstractQuestionParser {
     @Override
     protected List<String> readFile() throws IOException {
         StringBuilder sb = new StringBuilder();
+
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
                 sb.append(line.trim());
             }
+        } catch (FileNotFoundException fnf) {
+            throw new FileNotFoundException("JSON file not found: " + file.getAbsolutePath());
+        } catch (IOException ioe) {
+            throw new IOException("Error reading JSON file: " + file.getAbsolutePath(), ioe);
         }
+
         return List.of(sb.toString());
     }
 
     @Override
     protected Map<String, Category> parseFile(List<String> raw) throws Exception {
-        String jsonText = raw.get(0);
-        JSONArray array = new JSONArray(jsonText);
-
         Map<String, Category> categories = new TreeMap<>();
 
-        for (int i = 0; i < array.length(); i++) {
-            JSONObject obj = array.getJSONObject(i);
+        try {
+            JSONArray arr = new JSONArray(raw.get(0));
 
-            String categoryName = obj.getString("Category");
-            int points = obj.getInt("Value");
-            String questionText = obj.getString("Question");
-            char correctAnswer = obj.getString("CorrectAnswer").charAt(0);
+            for (int i = 0; i < arr.length(); i++) {
+                JSONObject obj = arr.getJSONObject(i);
 
-            // Parse nested Options object
-            JSONObject optionsObj = obj.getJSONObject("Options");
-            Map<Character, String> options = new HashMap<>();
-            for (char opt : new char[]{'A','B','C','D'}) {
-                if (optionsObj.has(String.valueOf(opt))) {
-                    options.put(opt, optionsObj.getString(String.valueOf(opt)));
+                if (!obj.has("Category") || !obj.has("Value") ||
+                    !obj.has("Question") || !obj.has("CorrectAnswer") ||
+                    !obj.has("Options")) {
+                    throw new InvalidFileFormatException(
+                        "JSON object missing required fields: " + obj
+                    );
                 }
+
+                String categoryName = obj.getString("Category");
+                int points = obj.getInt("Value");
+                String questionText = obj.getString("Question");
+                char answer = obj.getString("CorrectAnswer").charAt(0);
+
+                JSONObject opts = obj.getJSONObject("Options");
+                Map<Character, String> options = new HashMap<>();
+
+                for (char letter : new char[]{'A','B','C','D'}) {
+                    if (!opts.has(String.valueOf(letter))) {
+                        throw new InvalidFileFormatException(
+                            "JSON Options missing key '" + letter + "' in: " + obj
+                        );
+                    }
+                    options.put(letter, opts.getString(String.valueOf(letter)));
+                }
+
+                Question q = new Question(questionText, points, answer, options);
+
+                categories.computeIfAbsent(categoryName, Category::new)
+                          .addQuestion(q);
             }
 
-            Question q = new Question(questionText, points, correctAnswer, options);
-
-            // Add question to category
-            Category cat = categories.get(categoryName);
-            if (cat == null) {
-                cat = new Category(categoryName);
-                categories.put(categoryName, cat);
-            }
-            cat.addQuestion(q);
+        } catch (JSONException je) {
+            throw new InvalidFileFormatException("Malformed JSON file: " + je.getMessage(), je);
         }
 
         return categories;
