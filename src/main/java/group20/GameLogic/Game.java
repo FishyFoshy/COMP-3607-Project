@@ -70,7 +70,7 @@ public class Game {
         }
     }
 
-    public void enterPlayerNames() {
+    private void enterPlayerNames() {
         for (int i = 1; i <= gameState.getPlayerCount(); i++) {
             while (true) {
                 try {
@@ -84,7 +84,7 @@ public class Game {
         }
     }
 
-    public boolean askForCategory() throws GameQuitException {
+    private boolean askForCategory() throws GameQuitException {
         cliController.displayCategories(gameState.getCategories());
         while (true) {
             try {
@@ -101,7 +101,7 @@ public class Game {
         }
     }
 
-    public void askForQuestion() {
+    private void askForQuestion() {
         cliController.displayCategoryQuestions(this.gameState.getCurrentTurn().getTurnCategory());
         while (true) {
             try {
@@ -116,7 +116,7 @@ public class Game {
         }
     }
 
-    public void askForAnswer() {
+    private void askForAnswer() {
         cliController.displayQuestionOptions(this.gameState.getCurrentTurn().getTurnQuestion());
         while (true) {
             try {
@@ -130,6 +130,19 @@ public class Game {
         }
     }
 
+    private void generateReport(){
+        while (true) {
+            try {
+                String format = cliController.askForFileFormat();
+                ReportGenerator reportGenerator = reportCreator.getReportGenerator(format);
+                Command reportCommand = commandCreator.createGenerateReportCommand(gameState, this.id, reportGenerator);
+                invoker.executeCommand(reportCommand);
+                return;
+            } catch (InvalidFileFormatException | CommandExecutionException e) {
+                cliController.displayMessage(e.getMessage());
+            }
+        }
+    }
     /** Starts the game by calling {@link #loadFile()} -> {@link #selectPlayerCount()} -> {@link #enterPlayerNames()} -> {@link #playGame()} */
     public void startGame() {
         try {
@@ -177,10 +190,7 @@ public class Game {
     /**Ends the game and generates the report + process mining log */
     public void endGame(){
         try {
-            String format = cliController.askForFileFormat();
-            ReportGenerator reportGenerator = reportCreator.getReportGenerator(format);
-            Command reportCommand = commandCreator.createGenerateReportCommand(gameState, this.id, reportGenerator);
-            invoker.executeCommand(reportCommand);
+            generateReport();
 
             String eventLogFilename = "game_event_log.csv"; //Assignmented specified this filename, so it wasn't made dynamic
             Command eventLogCommand = commandCreator.createGenerateEventLogCommand(invoker, this.id, eventLogFilename);
@@ -191,7 +201,7 @@ public class Game {
             invoker.executeDelayedCommand();
             cliController.displayEventLogGenerated(eventLogFilename);
 
-        } catch (CommandExecutionException | InvalidFileFormatException e) {
+        } catch (CommandExecutionException e) {
             cliController.displayFailedEnd(e.getMessage());
         }
     }
